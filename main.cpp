@@ -9,6 +9,9 @@ void cardapio() {
     int escolher_lache;
 
     while (escolher_lache != -1) {
+
+        std::cout << "Saldo atual: " << saldo << "\n";
+
         for (int i = 0; i < 9; i++) {
             std::cout << "[" << i + 1 << "] " << laches[i] << " - " << precos[i] << "\n";
         }
@@ -19,7 +22,7 @@ void cardapio() {
         std::cin >> escolher_lache;
 
         if (escolher_lache == -1) {
-            return;
+            break;
         }
 
         if (!(1 <= escolher_lache && escolher_lache <= 9)) {
@@ -32,7 +35,38 @@ void cardapio() {
 
         else {
             std::cout << "Compra feita com sucesso!\n";
-            saldo = saldo - precos[escolher_lache - 1];
+            saldo -= precos[escolher_lache - 1];
+        }
+    }
+}
+
+void inserir_saldo() {
+
+    int escolher_saldo;
+
+    int opcoes_saldo[3] = {10, 25, 50};
+
+    while (escolher_saldo != -1) {
+        for (int i = 0; i < 3; i++) {
+            std::cout << "[" << i + 1 << "]" << "Inserir: " << opcoes_saldo[i] << "\n";
+        }
+
+        std::cout << "\nSelecione um dos itens para inserir o saldo, ou digite '-1' para sair do cardápio\n"
+                  << ">>> ";
+        
+        std::cin >> escolher_saldo;
+
+        if (escolher_saldo == -1) {
+            break;
+        }
+
+        if (!(1 <= escolher_saldo && escolher_saldo <= 3)) {
+            std::cout << "Essa opção não existe, tente um dos numeros presentes!\n";
+        }
+
+        else {
+            std::cout << "Inserção de " << opcoes_saldo[escolher_saldo - 1] << " reais feita com sucesso\n";
+            saldo += opcoes_saldo[escolher_saldo - 1];
         }
     }
 }
@@ -44,15 +78,13 @@ int main() {
     while (true) {
         std::cout << "=== Cantina ===\n"
                   << "[1] Cardápio\n"
-                  << "[2] Saldo\n"
-                  << "[3] PROMOÇÃO!\n"
-                  << "[4] Pedidos\n"
-                  << "[5] Sair\n";
+                  << "[2] Inserir Saldo\n"
+                  << "[3] Sair\n";
 
         std::cout << ">>> ";
         std::cin >> escolha_do_usuario;
 
-        if (escolha_do_usuario == 5) {
+        if (escolha_do_usuario == 3) {
             break;
         }
 
@@ -63,12 +95,7 @@ int main() {
                 break;
             
             case 2:
-                break;
-            
-            case 3:
-                break;
-            
-            case 4:
+                inserir_saldo();
                 break;
         
             default:
