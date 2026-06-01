@@ -161,7 +161,7 @@ int main() {
                 break;
         
             default:
-                std::cout << "Escolha apenas um dos 5 numeros na tela\n";
+                std::cout << "Escolha apenas um dos 4 numeros na tela\n";
         }
     }
 
