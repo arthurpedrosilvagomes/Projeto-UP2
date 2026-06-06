@@ -10,6 +10,39 @@ struct item {
 
 std::vector<item> carrinho;
 
+void adicionar_item_cardapio() {
+    item novo;
+
+    std::cout << "Nome do lanche: ";
+    std::cin.ignore();
+    getline(std::cin, novo.lanche);
+
+    std::cout << "Preco: ";
+    std::cin >> novo.preco;
+
+    cardapio.push_back(novo);
+
+    std::cout << "Item adicionado com sucesso!\n";
+}
+
+void remover_item_cardapio() {
+
+    for(int i = 0; i < cardapio.size(); i++) {
+        std::cout << "[" << i + 1 << "] "
+                  << cardapio[i].lanche
+                  << " - R$" << cardapio[i].preco << "\n";
+    }
+
+    int opcao;
+    std::cout << "Qual item deseja remover? ";
+    std::cin >> opcao;
+
+    if(opcao >= 1 && opcao <= cardapio.size()) {
+        cardapio.erase(cardapio.begin() + (opcao - 1));
+        std::cout << "Item removido!\n";
+    }
+}
+
 // Os valores aqui são apenas testes para demonstração
 std::vector<item> cardapio {{"Brigadeiro", 1.2}, {"Bolo", 3.5}, {"Surpresa de Uva", 1.1}};
 
@@ -191,8 +224,9 @@ void interface_servidor() {
 
     while (escolha_servidor != 2) {
         std::cout << "=== ADMINISTRAÇÃO ===\n"
-                << "[1] Alterar Cardápio\n"
-                << "[2] Sair\n"
+                << "[1] Adicionar Item\n"
+                << "[2] Remover Item\n"
+                << "[3] Sair\n"
                 << ">>> ";
         
         std::cin >> escolha_servidor;
@@ -200,7 +234,12 @@ void interface_servidor() {
         switch (escolha_servidor) {
 
         case 1:
-            /* code */
+            adicionar_item_cardapio();
+            break;
+        case 2:
+            remover_item_cardapio();
+            break;
+        case 3:
             break;
         
         default:
