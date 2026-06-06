@@ -83,7 +83,7 @@ void inserir_saldo() {
     }
 }
 
-void confirmar_pedido() {
+void confirmar_item() {
     float custo_total;
     for (int i = 0; i < carrinho.size(); i++) {
         custo_total += carrinho[i].preco;
@@ -99,7 +99,7 @@ void confirmar_pedido() {
     }
 }
 
-void eliminar_pedido() {
+void eliminar_item() {
     int eliminar_item;
     std::cout << "Insira um item para eliminar: ";
     std::cin >> eliminar_item;
@@ -125,7 +125,7 @@ void mostrar_carrinho() {
     while (escolha_do_usuario != 3) {
 
         std::cout << "[1] Confirmar pedido(s)\n"
-                  << "[2] Eliminar pedido\n"
+                  << "[2] Eliminar \n"
                   << "[3] Retornar ao menu\n"
                   << ">>> ";
         
@@ -134,11 +134,11 @@ void mostrar_carrinho() {
         switch (escolha_do_usuario) {
 
             case 1:
-                confirmar_pedido();
+                confirmar_item();
                 break;
             
             case 2:
-                eliminar_pedido();
+                eliminar_item();
                 break;
             
             default:
@@ -185,14 +185,48 @@ void interface_cliente() {
 
 /* Funções para interface do servidor */
 
+void adicionar_item_cardapio() {
+    item novo;
+
+    std::cout << "Nome do lanche: ";
+    std::cin.ignore();
+    getline(std::cin, novo.lanche);
+
+    std::cout << "Preco: ";
+    std::cin >> novo.preco;
+
+    cardapio.push_back(novo);
+
+    std::cout << "Item adicionado com sucesso!\n";
+}
+
+void remover_item_cardapio() {
+
+    for(int i = 0; i < cardapio.size(); i++) {
+        std::cout << "[" << i + 1 << "] "
+                  << cardapio[i].lanche
+                  << " - R$" << cardapio[i].preco << "\n";
+    }
+
+    int opcao;
+    std::cout << "Qual item deseja remover? ";
+    std::cin >> opcao;
+
+    if(opcao >= 1 && opcao <= cardapio.size()) {
+        cardapio.erase(cardapio.begin() + (opcao - 1));
+        std::cout << "Item removido!\n";
+    }
+}
+
 void interface_servidor() {
     
     int escolha_servidor;
 
-    while (escolha_servidor != 2) {
+    while (escolha_servidor != 3) {
         std::cout << "=== ADMINISTRAÇÃO ===\n"
-                << "[1] Alterar Cardápio\n"
-                << "[2] Sair\n"
+                << "[1] Adicionar Item\n"
+                << "[2] Remover Item\n"
+                << "[3] Sair\n"
                 << ">>> ";
         
         std::cin >> escolha_servidor;
@@ -200,9 +234,13 @@ void interface_servidor() {
         switch (escolha_servidor) {
 
         case 1:
-            /* code */
+            adicionar_item_cardapio();
             break;
-        
+        case 2:
+            remover_item_cardapio();
+            break;
+        case 3:
+            break;
         default:
             std::cout << "Insira apenas um dos valores apresentados!\n";
             break;
