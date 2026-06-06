@@ -8,16 +8,23 @@ struct item {
     float preco;
 };
 
+struct transacao {
+    item compra;
+    std::string cliente;
+};
+
 std::vector<item> carrinho;
 
 // Os valores aqui são apenas testes para demonstração
 std::vector<item> cardapio {{"Brigadeiro", 1.2}, {"Bolo", 3.5}, {"Surpresa de Uva", 1.1}};
 
+std::vector<transacao> transacoes;
+
 /* Funções para interface do cliente */
 
-void adicionar_carrinho(std::string lanche, float preco) {
+void adicionar_lista(std::vector<item>& lista, std::string lanche, float preco) {
     item item_escolhido = {lanche, preco};
-    carrinho.push_back(item_escolhido);
+    lista.push_back(item_escolhido);
 }
 
 void mostrar_cardapio() {
@@ -47,7 +54,7 @@ void mostrar_cardapio() {
         }
         else {
             std::cout << "item adicionado ao carrinho!\n";
-            adicionar_carrinho(cardapio[escolher_lanche - 1].lanche, cardapio[escolher_lanche - 1].preco);
+            adicionar_lista(carrinho, cardapio[escolher_lanche - 1].lanche, cardapio[escolher_lanche - 1].preco);
         }
     }
 }
@@ -93,8 +100,15 @@ void confirmar_item() {
         std::cout << "Você não tem saldo o suficiente!\n";
     }
     else {
-        std::cout << "item feito com sucesso!\n";
+        std::string identificador;
+        std::cout << "Insira seu CPF: \n";
+        std::cin >> identificador;
+
+        std::cout << "pedido feito com sucesso!\n";
         saldo -= custo_total;
+        for (int i = 0; i < carrinho.size(); i++) {
+            transacoes.push_back({carrinho[i], identificador});
+        }
         carrinho.clear();
     }
 }
@@ -125,7 +139,7 @@ void mostrar_carrinho() {
     while (escolha_do_usuario != 3) {
 
         std::cout << "[1] Confirmar pedido(s)\n"
-                  << "[2] Eliminar \n"
+                  << "[2] Eliminar pedido\n"
                   << "[3] Retornar ao menu\n"
                   << ">>> ";
         
@@ -185,6 +199,19 @@ void interface_cliente() {
 
 /* Funções para interface do servidor */
 
+void visualizar_vendas() {
+
+    float valor_arrecadado = 0;
+
+    std::cout << "=== VENDAS ===\n";
+    for (int i = 0; i < transacoes.size(); i++) {
+        std::cout << "Cliente: " << transacoes[i].cliente << "-->" << transacoes[i].compra.lanche << ": " << transacoes[i].compra.preco << "\n";
+        valor_arrecadado += transacoes[i].compra.preco;
+    }
+    std::cout << "==============\n"
+              << "total arrecadado: " << valor_arrecadado << "\n";
+}
+
 void adicionar_item_cardapio() {
     item novo;
 
@@ -222,11 +249,12 @@ void interface_servidor() {
     
     int escolha_servidor;
 
-    while (escolha_servidor != 3) {
+    while (escolha_servidor != 4) {
         std::cout << "=== ADMINISTRAÇÃO ===\n"
                 << "[1] Adicionar Item\n"
                 << "[2] Remover Item\n"
-                << "[3] Sair\n"
+                << "[3] Visualizar vendas\n"
+                << "[4] Sair\n"
                 << ">>> ";
         
         std::cin >> escolha_servidor;
@@ -236,11 +264,15 @@ void interface_servidor() {
         case 1:
             adicionar_item_cardapio();
             break;
+
         case 2:
             remover_item_cardapio();
             break;
+
         case 3:
+            visualizar_vendas();
             break;
+
         default:
             std::cout << "Insira apenas um dos valores apresentados!\n";
             break;
