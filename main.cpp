@@ -83,7 +83,7 @@ void inserir_saldo() {
     }
 }
 
-void confirmar_pedido() {
+void confirmar_item() {
     float custo_total;
     for (int i = 0; i < carrinho.size(); i++) {
         custo_total += carrinho[i].preco;
@@ -99,7 +99,7 @@ void confirmar_pedido() {
     }
 }
 
-void eliminar_pedido() {
+void eliminar_item() {
     int eliminar_item;
     std::cout << "Insira um item para eliminar: ";
     std::cin >> eliminar_item;
@@ -125,7 +125,7 @@ void mostrar_carrinho() {
     while (escolha_do_usuario != 3) {
 
         std::cout << "[1] Confirmar pedido(s)\n"
-                  << "[2] Eliminar pedido\n"
+                  << "[2] Eliminar \n"
                   << "[3] Retornar ao menu\n"
                   << ">>> ";
         
@@ -134,11 +134,11 @@ void mostrar_carrinho() {
         switch (escolha_do_usuario) {
 
             case 1:
-                confirmar_pedido();
+                confirmar_item();
                 break;
             
             case 2:
-                eliminar_pedido();
+                eliminar_item();
                 break;
             
             default:
@@ -178,15 +178,66 @@ void interface_cliente() {
         
             default:
                 std::cout << "Escolha apenas um dos 4 numeros na tela\n";
+                break;
         }
     }
-
 }
-// Bom dia pessoal
+
+/* Funções para interface do servidor */
+
+void interface_servidor() {
+    
+    int escolha_servidor;
+
+    while (escolha_servidor != 2) {
+        std::cout << "=== ADMINISTRAÇÃO ===\n"
+                << "[1] Alterar Cardápio\n"
+                << "[2] Sair\n"
+                << ">>> ";
+        
+        std::cin >> escolha_servidor;
+
+        switch (escolha_servidor) {
+
+        case 1:
+            /* code */
+            break;
+        
+        default:
+            std::cout << "Insira apenas um dos valores apresentados!\n";
+            break;
+        }
+    }
+}
 
 int main() {
 
-    interface_cliente();
+    int escolha_usuario;
+
+    while (escolha_usuario != 3) {
+        std::cout << "=== ENTRAR COMO ===\n"
+                  << "[1] Servidor\n"
+                  << "[2] Cliente\n"
+                  << "[3] Sair\n"
+                  << ">>> ";
+        
+        std::cin >> escolha_usuario;
+
+        switch (escolha_usuario) {
+        
+        case 1:
+            interface_servidor();
+            break;
+        
+        case 2:
+            interface_cliente();
+            break;
+
+        default:
+            std::cout << "Insira apenas os valores apresentados!";
+            break;
+        }
+    }
 
     return 0;
 }
