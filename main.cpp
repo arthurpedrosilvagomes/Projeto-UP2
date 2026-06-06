@@ -14,39 +14,11 @@ std::vector<item> carrinho;
 std::vector<item> cardapio {{"Brigadeiro", 1.2}, {"Bolo", 3.5}, {"Surpresa de Uva", 1.1}};
 
 /* Funções para interface do cliente */
-void adicionar_item_cardapio() {
-    item novo;
 
-    std::cout << "Nome do lanche: ";
-    std::cin.ignore();
-    getline(std::cin, novo.lanche);
-
-    std::cout << "Preco: ";
-    std::cin >> novo.preco;
-
-    cardapio.push_back(novo);
-
-    std::cout << "Item adicionado com sucesso!\n";
+void adicionar_carrinho(std::string nome, float preco) {
+    item novo_produto = {nome, preco};
+    carrinho.push_back(novo_produto);
 }
-
-void remover_item_cardapio() {
-
-    for(int i = 0; i < cardapio.size(); i++) {
-        std::cout << "[" << i + 1 << "] "
-                  << cardapio[i].lanche
-                  << " - R$" << cardapio[i].preco << "\n";
-    }
-
-    int opcao;
-    std::cout << "Qual item deseja remover? ";
-    std::cin >> opcao;
-
-    if(opcao >= 1 && opcao <= cardapio.size()) {
-        cardapio.erase(cardapio.begin() + (opcao - 1));
-        std::cout << "Item removido!\n";
-    }
-}
-
 
 void mostrar_cardapio() {
 
@@ -212,6 +184,39 @@ void interface_cliente() {
 }
 
 /* Funções para interface do servidor */
+
+void adicionar_item_cardapio() {
+    item novo;
+
+    std::cout << "Nome do lanche: ";
+    std::cin.ignore();
+    getline(std::cin, novo.lanche);
+
+    std::cout << "Preco: ";
+    std::cin >> novo.preco;
+
+    cardapio.push_back(novo);
+
+    std::cout << "Item adicionado com sucesso!\n";
+}
+
+void remover_item_cardapio() {
+
+    for(int i = 0; i < cardapio.size(); i++) {
+        std::cout << "[" << i + 1 << "] "
+                  << cardapio[i].lanche
+                  << " - R$" << cardapio[i].preco << "\n";
+    }
+
+    int opcao;
+    std::cout << "Qual item deseja remover? ";
+    std::cin >> opcao;
+
+    if(opcao >= 1 && opcao <= cardapio.size()) {
+        cardapio.erase(cardapio.begin() + (opcao - 1));
+        std::cout << "Item removido!\n";
+    }
+}
 
 void interface_servidor() {
     
