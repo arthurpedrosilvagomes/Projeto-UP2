@@ -234,6 +234,8 @@ void interface_servidor() {
         case 2:
             remover_item_cardapio();
             break;
+        case 3:
+            break;
         default:
             std::cout << "Insira apenas um dos valores apresentados!\n";
             break;
