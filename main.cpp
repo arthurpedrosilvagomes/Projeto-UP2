@@ -10,6 +10,10 @@ struct item {
 
 std::vector<item> carrinho;
 
+// Os valores aqui são apenas testes para demonstração
+std::vector<item> cardapio {{"Brigadeiro", 1.2}, {"Bolo", 3.5}, {"Surpresa de Uva", 1.1}};
+
+/* Funções para interface do cliente */
 void adicionar_item_cardapio() {
     item novo;
 
@@ -43,15 +47,6 @@ void remover_item_cardapio() {
     }
 }
 
-// Os valores aqui são apenas testes para demonstração
-std::vector<item> cardapio {{"Brigadeiro", 1.2}, {"Bolo", 3.5}, {"Surpresa de Uva", 1.1}};
-
-/* Funções para interface do cliente */
-
-void adicionar_carrinho(std::string lanche, float preco) {
-    item item_escolhido = {lanche, preco};
-    carrinho.push_back(item_escolhido);
-}
 
 void mostrar_cardapio() {
 
@@ -222,7 +217,7 @@ void interface_servidor() {
     
     int escolha_servidor;
 
-    while (escolha_servidor != 2) {
+    while (escolha_servidor != 3) {
         std::cout << "=== ADMINISTRAÇÃO ===\n"
                 << "[1] Adicionar Item\n"
                 << "[2] Remover Item\n"
@@ -239,9 +234,6 @@ void interface_servidor() {
         case 2:
             remover_item_cardapio();
             break;
-        case 3:
-            break;
-        
         default:
             std::cout << "Insira apenas um dos valores apresentados!\n";
             break;
