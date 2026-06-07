@@ -136,29 +136,26 @@ void mostrar_carrinho() {
 
     int escolha_do_usuario;
 
-    while (escolha_do_usuario != 3) {
-
-        std::cout << "[1] Confirmar pedido(s)\n"
-                  << "[2] Eliminar pedido\n"
-                  << "[3] Retornar ao menu\n"
-                  << ">>> ";
+    std::cout << "[1] Confirmar pedido(s)\n"
+            << "[2] Eliminar pedido\n"
+            << "[3] Retornar ao menu\n"
+            << ">>> ";
         
-        std::cin >> escolha_do_usuario;
+    std::cin >> escolha_do_usuario;
 
-        switch (escolha_do_usuario) {
+    switch (escolha_do_usuario) {
 
-            case 1:
-                confirmar_item();
-                break;
+        case 1:
+            confirmar_item();
+            break;
             
-            case 2:
-                eliminar_item();
-                break;
+        case 2:
+            eliminar_item();
+            break;
             
-            default:
-                std::cout << "Selecione apenas as opções na tela\n";
-                break;
-        }
+        default:
+            std::cout << "Selecione apenas as opções na tela\n";
+            break;
     }
 }
 
